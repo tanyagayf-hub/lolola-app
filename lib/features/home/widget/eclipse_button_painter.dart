@@ -192,7 +192,7 @@ void _barsWave(_Ctx x, {bool backwards = false}) {
     // the H stays one piece: its crossbar fades from the short bar's shade into the tall bar's
     c.drawPath(
       _HiLogo.h,
-      Paint()..shader = ui.Gradient.linear(const Offset(10.75, 0), const Offset(13.54, 0), [shade[0], shade[1]]),
+      Paint()..shader = ui.Gradient.linear(const Offset(10.98, 0), const Offset(12.4, 0), [shade[0], shade[1]]),
     );
     c.drawPath(_HiLogo.stem, Paint()..color = shade[2]);
     c.drawPath(_HiLogo.dot, Paint()..color = shade[3]);
@@ -754,32 +754,33 @@ Path _svgPath(String d) {
   return path;
 }
 
-// lolola: the "lo." mark (assets/images/logo.svg) in place of the Hi logo, in the same 64 × 64 units and
-// the same four parts: 0 the l, 1 the o (both in [h], split by [clipOf]), 2 the dot ([stem]) and 3 nothing.
+// lolola: the "lo." mark (assets/images/logo.svg, brand/lolola-avatar-lime.svg: the o sits a little lower
+// than the l) in place of the Hi logo, in the same 64 × 64 units and the same four parts: 0 the l, 1 the o
+// (both in [h], split by [clipOf]), 2 the dot ([stem]) and 3 nothing.
 abstract final class _HiLogo {
   static final dot = Path();
 
   static final h = Path()
-    ..addRRect(RRect.fromLTRBR(1, 12.9, 10.75, 61.66, const Radius.circular(4.88)))
-    ..addOval(Rect.fromCircle(center: const Offset(32.35, 43.55), radius: 18.81))
-    ..addOval(Rect.fromCenter(center: const Offset(32.35, 43.55), width: 18.12, height: 19.5))
+    ..addRRect(RRect.fromLTRBR(1, 7.5, 10.98, 57.38, const Radius.circular(4.99)))
+    ..addOval(Rect.fromCircle(center: const Offset(31.64, 43.13), radius: 19.24))
+    ..addOval(Rect.fromCenter(center: const Offset(31.64, 43.13), width: 18.53, height: 19.95))
     ..fillType = PathFillType.evenOdd;
 
-  static final stem = Path()..addOval(Rect.fromCircle(center: const Offset(57.42, 56.44), radius: 5.57));
+  static final stem = Path()..addOval(Rect.fromCircle(center: const Offset(57.3, 51.68), radius: 5.7));
 
   static final all = Path.combine(PathOperation.union, h, stem);
 
   static Path pathOf(int part) => part < 2 ? h : (part == 2 ? stem : dot);
 
   static Rect clipOf(int part) => switch (part) {
-    0 => const Rect.fromLTRB(-2, -2, 12.1, 66),
-    1 => const Rect.fromLTRB(12.1, -2, 66, 66),
+    0 => const Rect.fromLTRB(-2, -2, 11.7, 66),
+    1 => const Rect.fromLTRB(11.7, -2, 66, 66),
     _ => const Rect.fromLTRB(-2, -2, 66, 66),
   };
 
-  static const tops = [12.9, 24.74, 50.87, 50.87];
-  static const bottoms = [61.66, 62.36, 62.01, 62.01];
-  static const centersX = [5.88, 32.35, 57.42, 57.42];
+  static const tops = [7.5, 23.89, 45.98, 45.98];
+  static const bottoms = [57.38, 62.37, 57.38, 57.38];
+  static const centersX = [5.99, 31.64, 57.3, 57.3];
 
   /// The signal bar each part belongs to: the dot is the third.
   static const bar = [0, 1, 2, 2];

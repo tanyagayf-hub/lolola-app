@@ -1,6 +1,8 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<!-- lolola: the "lo." mark, in the units of the Hiddify logo it replaces -->
-<rect x="1" y="12.9" width="9.75" height="48.76" rx="4.88" fill="#FF2D8D"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M13.54 43.55A18.81 18.81 0 1 0 51.16 43.55A18.81 18.81 0 1 0 13.54 43.55ZM23.29 43.55A9.06 9.75 0 1 1 41.41 43.55A9.06 9.75 0 1 1 23.29 43.55Z" fill="#FF2D8D"/>
-<circle cx="57.42" cy="56.44" r="5.57" fill="#FF2D8D"/>
+<!-- lolola: the "lo." mark of brand/lolola-avatar-lime.svg (the o sits lower than the l), in the units of the Hiddify logo it replaces -->
+<g transform="translate(1 7.5) scale(0.3563)">
+<rect x="0" y="0" width="28" height="140" rx="14" fill="#FF2D8D"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M32 100A54 54 0 1 0 140 100A54 54 0 1 0 32 100ZM60 100A26 28 0 1 1 112 100A26 28 0 1 1 60 100Z" fill="#FF2D8D"/>
+<circle cx="158" cy="124" r="16" fill="#FF2D8D"/>
+</g>
 </svg>

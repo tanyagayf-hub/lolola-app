@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- lolola: the "lo." mark, black with the pink dot, on the lime background (ic_launcher_background) -->
+<!-- lolola: the "lo." mark of brand/lolola-avatar-lime.svg, black with the pink dot, on the lime
+     background (ic_launcher_background), in the same proportions as the avatar in the visible 72dp -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
   <group
-      android:scaleX="0.9"
-      android:scaleY="0.9"
-      android:translateX="25.2"
-      android:translateY="20.2">
+      android:scaleX="0.2424"
+      android:scaleY="0.2424"
+      android:translateX="32.9"
+      android:translateY="35.6">
     <path
-        android:pathData="M5.88,12.9h0a4.88,4.88 0,0 1,4.88 4.88v39a4.88,4.88 0,0 1,-4.88 4.88h0a4.88,4.88 0,0 1,-4.88 -4.88v-39a4.88,4.88 0,0 1,4.88 -4.88z"
+        android:pathData="M14,0a14,14 0,0 1,14 14v112a14,14 0,0 1,-14 14a14,14 0,0 1,-14 -14v-112a14,14 0,0 1,14 -14z"
         android:fillColor="#111111"/>
     <path
-        android:pathData="M13.54,43.55a18.81,18.81 0,1 0,37.62 0a18.81,18.81 0,1 0,-37.62 0zM23.29,43.55a9.06,9.75 0,1 1,18.12 0a9.06,9.75 0,1 1,-18.12 0z"
+        android:pathData="M32,100a54,54 0,1 0,108 0a54,54 0,1 0,-108 0zM60,100a26,28 0,1 1,52 0a26,28 0,1 1,-52 0z"
         android:fillColor="#111111"
         android:fillType="evenOdd"/>
     <path
-        android:pathData="M51.85,56.44a5.57,5.57 0,1 0,11.14 0a5.57,5.57 0,1 0,-11.14 0z"
+        android:pathData="M142,124a16,16 0,1 0,32 0a16,16 0,1 0,-32 0z"
         android:fillColor="#FF2D8D"/>
   </group>
 </vector>
