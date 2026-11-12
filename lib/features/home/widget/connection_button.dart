@@ -121,12 +121,12 @@ class ConnectionButton extends HookConsumerWidget {
       buttonColor: switch (look) {
         _Look.connected when degraded => _degradedColor,
         // the traffic waits for the chain hop: still on its way
-        _Look.connected when hopPending => const Color(0xFF455FE9),
+        _Look.connected when hopPending => const Color(0xFFFF2D8D),
         _Look.connected => buttonTheme.connectedColor!,
         _Look.noProxies => const Color.fromARGB(255, 185, 176, 103),
         _Look.failed => Colors.red,
         // the logo's own blue while the connection is on its way
-        _Look.connecting || _Look.waiting || _Look.hotReloading || _Look.disconnecting => const Color(0xFF455FE9),
+        _Look.connecting || _Look.waiting || _Look.hotReloading || _Look.disconnecting => const Color(0xFFFF2D8D),
         _ => buttonTheme.idleColor!,
       },
       image: switch (look) {

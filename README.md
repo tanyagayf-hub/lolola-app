@@ -1,3 +1,23 @@
+# lolola — приложение на основе Hiddify
+
+Это форк [hiddify/hiddify-app](https://github.com/hiddify/hiddify-app) для клиентов lolola.ru.
+Код Hiddify распространяется по [их лицензии](LICENSE.md) (GPL v3 с дополнительными условиями);
+все изменения — ниже и в истории коммитов. Спасибо команде Hiddify.
+
+## Что изменено
+
+- Название **lolola**, значок «lo.» и цвета lolola; id приложения `ru.lolola.app` (ставится рядом с Hiddify).
+- REALITY: ключ `keyshare=classical` по умолчанию, если в ссылке не указан другой
+  (`lolola/patch_core.py`, применяется к hiddify-core перед сборкой).
+- Нет проверки и установки обновлений из приложения; нет списка бесплатных серверов Hiddify.
+- Ссылки `lolola://import/…` (ссылки `hiddify://` тоже открываются).
+- User-Agent: `lolola/<версия> (<система>) HiddifyNext/<версия> …`.
+- Сборка Android: `.github/workflows/lolola-android.yml` (GitHub Actions) — ядро из подмодуля
+  hiddify-core собирается вместе с приложением; APK — в релизе `lolola-test`.
+- Тестовый ключ подписи — `lolola/test-key.jks` (только для проверки; для раздачи клиентам — другой ключ).
+
+---
+
 <div dir="ltr" align=center>
     
 [**![Lang_farsi](https://user-images.githubusercontent.com/125398461/234186932-52f1fa82-52c6-417f-8b37-08fe9250a55f.png) فارسی**](README_fa.md) / [**Русский 🇷🇺**](README_ru.md) / [**简体中文 🇨🇳**](README_cn.md) / [**日本語 🇯🇵**](README_ja.md) / [**Portugês-BR 🇧🇷**](README_br.md)

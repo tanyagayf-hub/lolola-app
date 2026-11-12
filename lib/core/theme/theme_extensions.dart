@@ -7,7 +7,7 @@ class ConnectionButtonTheme extends ThemeExtension<ConnectionButtonTheme> {
   final Color? connectedColor;
 
   static const ConnectionButtonTheme light = ConnectionButtonTheme(
-    idleColor: Color(0xFF4a4d8b),
+    idleColor: Color(0xFF141414),
     connectedColor: Color(0xFF44a334),
   );
 

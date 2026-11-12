@@ -78,7 +78,7 @@ class CirclePainter extends CustomPainter {
     final double cy = size.height / 2;
 
     Color baseColor;
-    var innerCircleColor = [const Color(0xFF455FE9), const Color(0xFF3446A5)];
+    var innerCircleColor = [const Color(0xFFFF2D8D), const Color(0xFFC81E6E)];
     if (currentState == ConnectionStateStatus.connected) {
       baseColor = Colors.green.shade900;
     } else if (currentState == ConnectionStateStatus.error) {

@@ -58,7 +58,7 @@ String phoneImportPage(
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">',
     '<meta name="color-scheme" content="light dark">',
-    '<meta name="theme-color" content="#455FE9">',
+    '<meta name="theme-color" content="#FF2D8D">',
     '<meta name="referrer" content="no-referrer">',
     '<title>${e(t.title)}</title><style>$_css</style></head><body><main class="wrap">',
     '<header class="brand"><span class="logo">$_logo</span><span class="word">Hiddify</span></header>',

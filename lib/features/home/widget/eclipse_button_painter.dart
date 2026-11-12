@@ -192,7 +192,7 @@ void _barsWave(_Ctx x, {bool backwards = false}) {
     // the H stays one piece: its crossbar fades from the short bar's shade into the tall bar's
     c.drawPath(
       _HiLogo.h,
-      Paint()..shader = ui.Gradient.linear(const Offset(16.84, 0), const Offset(23.58, 0), [shade[0], shade[1]]),
+      Paint()..shader = ui.Gradient.linear(const Offset(10.75, 0), const Offset(13.54, 0), [shade[0], shade[1]]),
     );
     c.drawPath(_HiLogo.stem, Paint()..color = shade[2]);
     c.drawPath(_HiLogo.dot, Paint()..color = shade[3]);
@@ -712,6 +712,7 @@ class _Ctx {
 // The Hi logo, from assets/images/logo.svg, in its 64 × 64 units, in four parts: the short bar with
 // the crossbar, the tall bar, the stem and the dot
 
+// ignore: unused_element
 Path _svgPath(String d) {
   final path = Path();
   final tokens = RegExp(r'[MCLVHZ]|-?\d*\.?\d+').allMatches(d).map((m) => m.group(0)!).toList();
@@ -753,48 +754,37 @@ Path _svgPath(String d) {
   return path;
 }
 
+// lolola: the "lo." mark (assets/images/logo.svg) in place of the Hi logo, in the same 64 × 64 units and
+// the same four parts: 0 the l, 1 the o (both in [h], split by [clipOf]), 2 the dot ([stem]) and 3 nothing.
 abstract final class _HiLogo {
-  static final dot = _svgPath(
-    'M47.1582 14.4283C47.1582 13.8368 47.4684 13.2886 47.9757 12.9842L61.4494 4.89891C62.5721 4.22529 64.0003 '
-    '5.03389 64.0003 6.34306V20.2103C64.0003 21.1405 63.2461 21.8945 62.3161 21.8945H48.8424C47.9124 21.8945 '
-    '47.1582 21.1405 47.1582 20.2103V14.4283Z',
-  );
+  static final dot = Path();
 
-  static final h = _svgPath(
-    'M24.3966 26.4593C23.8893 26.7637 23.5789 27.3118 23.5789 27.9034V43.7921L23.5789 45.4751L23.5789 45.4763L23.5789 '
-    '48.0001C23.5789 48.9301 22.8249 49.6001 21.8947 49.6001H18.5263C17.5962 49.6001 16.8421 48.9301 16.8421 48.0001V '
-    '45.4751V34.976C16.8421 33.6669 15.4139 32.8583 14.2913 33.5319L0.817607 41.6171C0.310362 41.9216 0 42.4696 0 '
-    '43.0615V60.6342C0 61.5642 0.754048 62.3184 1.68421 62.3184H15.1579C16.0881 62.3184 16.8421 61.5642 16.8421 '
-    '60.6342V58.9488V56.8314C16.8421 55.9011 17.5962 55.3376 18.5263 55.3376H21.8947C22.8249 55.3376 23.5789 55.9011 '
-    '23.5789 56.8314V58.9488L23.5789 60.6342C23.5789 61.5642 24.333 62.3184 25.2632 62.3184H38.7368C39.6669 62.3184 '
-    '40.4211 61.5642 40.4211 60.6342V45.4763V43.7921V19.8182C40.4211 18.509 38.9928 17.7004 37.8701 18.374L24.3966 '
-    '26.4593Z',
-  )..fillType = PathFillType.evenOdd;
+  static final h = Path()
+    ..addRRect(RRect.fromLTRBR(1, 12.9, 10.75, 61.66, const Radius.circular(4.88)))
+    ..addOval(Rect.fromCircle(center: const Offset(32.35, 43.55), radius: 18.81))
+    ..addOval(Rect.fromCenter(center: const Offset(32.35, 43.55), width: 18.12, height: 19.5))
+    ..fillType = PathFillType.evenOdd;
 
-  static final stem = _svgPath(
-    'M47.1592 28.7999V60.7999C47.1592 61.6836 47.9132 62.3999 48.8434 62.3999H62.3171C63.2472 62.3999 64.0013 61.6836 '
-    '64.0013 60.7999V28.7999C64.0013 27.9162 63.2472 27.1999 62.3171 27.1999H48.8434C47.9132 27.1999 47.1592 27.9162 '
-    '47.1592 28.7999Z',
-  );
+  static final stem = Path()..addOval(Rect.fromCircle(center: const Offset(57.42, 56.44), radius: 5.57));
 
-  static final all = Path.combine(PathOperation.union, Path.combine(PathOperation.union, h, stem), dot);
+  static final all = Path.combine(PathOperation.union, h, stem);
 
   static Path pathOf(int part) => part < 2 ? h : (part == 2 ? stem : dot);
 
   static Rect clipOf(int part) => switch (part) {
-    0 => const Rect.fromLTRB(-2, -2, 23.58, 66),
-    1 => const Rect.fromLTRB(23.58, -2, 42, 66),
+    0 => const Rect.fromLTRB(-2, -2, 12.1, 66),
+    1 => const Rect.fromLTRB(12.1, -2, 66, 66),
     _ => const Rect.fromLTRB(-2, -2, 66, 66),
   };
 
-  static const tops = [32.9, 18.2, 27.2, 4.2];
-  static const bottoms = [62.32, 62.32, 62.4, 21.9];
-  static const centersX = [8.4, 32.0, 55.6, 55.6];
+  static const tops = [12.9, 24.74, 50.87, 50.87];
+  static const bottoms = [61.66, 62.36, 62.01, 62.01];
+  static const centersX = [5.88, 32.35, 57.42, 57.42];
 
-  /// The signal bar each part belongs to: the stem and the dot are the third.
+  /// The signal bar each part belongs to: the dot is the third.
   static const bar = [0, 1, 2, 2];
 
-  /// The order the parts light up in: the dot just after the stem.
+  /// The order the parts light up in.
   static const rank = [0.0, 1.0, 2.0, 2.6];
 }
 

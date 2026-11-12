@@ -9,7 +9,8 @@ class AppTheme {
   final String fontFamily;
 
   ThemeData lightTheme(ColorScheme? lightColorScheme) {
-    final ColorScheme scheme = lightColorScheme ?? ColorScheme.fromSeed(seedColor: const Color(0xFF293CA0));
+    // lolola: our own colors, not the wallpaper's
+    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: const Color(0xFFFF2D8D));
     return ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
@@ -20,7 +21,7 @@ class AppTheme {
 
   ThemeData darkTheme(ColorScheme? darkColorScheme) {
     final ColorScheme scheme =
-        darkColorScheme ?? ColorScheme.fromSeed(seedColor: const Color(0xFF293CA0), brightness: Brightness.dark);
+        ColorScheme.fromSeed(seedColor: const Color(0xFFFF2D8D), brightness: Brightness.dark);
     return ThemeData(
       useMaterial3: true,
       colorScheme: scheme,

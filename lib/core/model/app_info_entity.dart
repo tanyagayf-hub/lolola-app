@@ -17,7 +17,8 @@ class AppInfoEntity with _$AppInfoEntity {
     required Environment environment,
   }) = _AppInfoEntity;
 
-  String get userAgent => "HiddifyNext/$version ($operatingSystem) like ClashMeta v2ray sing-box";
+  // lolola: "HiddifyNext" stays in, the subscription server and panels recognise the app by it
+  String get userAgent => "lolola/$version ($operatingSystem) HiddifyNext/$version like ClashMeta v2ray sing-box";
 
   String get presentVersion => environment == Environment.prod ? version : "$version ${environment.name}";
 

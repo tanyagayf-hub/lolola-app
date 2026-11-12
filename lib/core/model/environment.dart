@@ -28,7 +28,8 @@ enum Release {
 
   /// The app finds and installs its own updates only outside a store: a store updates its apps
   /// itself, and does not allow an app to offer another way.
-  bool get allowCustomUpdateChecker => this == general;
+  // lolola: no update checks, a new version is installed only after it was tested
+  bool get allowCustomUpdateChecker => false;
 
   /// The release of this build: what it was built as, else what it runs as. An iOS app is updated
   /// by the store that installed it (or the way it was sideloaded), never by the app; an MSIX

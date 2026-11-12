@@ -1,0 +1,148 @@
+# lolola: the Android app for our own testing.
+#
+#   core ── apk ── release "lolola-test"
+#
+# - core: builds hiddify-core from the commit this app is made for (the hiddify-core submodule),
+#   with lolola/patch_core.py applied (REALITY keyshare classical unless a link says otherwise).
+# - apk: builds the app with that core and the test key in lolola/, and puts the APKs on the
+#   prerelease "lolola-test", always at the same links:
+#   https://github.com/tanyagayf-hub/lolola-app/releases/download/lolola-test/lolola-android-arm64.apk
+name: lolola Android
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore: ['**.md']
+
+concurrency:
+  group: lolola-android
+  cancel-in-progress: true
+
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Get the core sources
+        run: |
+          # the submodules are listed with ssh links; read them over https
+          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+          git config --global --add url."https://github.com/".insteadOf "git@github.com:"
+          git submodule update --init --recursive --depth 1 hiddify-core || git submodule update --init --recursive hiddify-core
+          git -C hiddify-core log -1 --format='core %h %cs %s'
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: hiddify-core/go.mod
+          cache-dependency-path: hiddify-core/go.sum
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Set up the Android NDK
+        id: ndk
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r28
+
+      - name: lolola changes to the core
+        run: python3 lolola/patch_core.py hiddify-core
+
+      - name: Build the core
+        env:
+          ANDROID_NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
+          CODE_VERSION: -X github.com/hiddify/hiddify-core/v2/hcommon/constants.Version=5.5.6-lolola
+        run: |
+          make -C hiddify-core android
+          ls -la hiddify-core/bin
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: core-android
+          path: hiddify-core/bin/hiddify-core.aar
+          retention-days: 3
+          if-no-files-found: error
+
+  apk:
+    needs: core
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    env:
+      CHANNEL: prod
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /opt/hostedtoolcache/CodeQL
+          df -h /
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Set up the Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2
+        with:
+          packages: platform-tools
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # v2.21.0
+        with:
+          flutter-version: 3.38.5
+          channel: stable
+          cache: true
+
+      - name: Packages and generated code
+        run: |
+          dart pub global activate fastforge
+          echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"
+          flutter pub get
+          dart run build_runner build --delete-conflicting-outputs
+          dart run slang
+
+      - name: Take the core built above
+        uses: actions/download-artifact@v7
+        with:
+          name: core-android
+          path: android/app/libs
+
+      - name: Set up the signing key
+        run: |
+          cp lolola/test-key.properties android/key.properties
+          echo "storeFile=$PWD/lolola/test-key.jks" >> android/key.properties
+
+      - name: Build
+        run: make android-apk-release
+
+      - name: Collect the APKs
+        run: |
+          mkdir out
+          apk=build/app/outputs/flutter-apk
+          ls -la $apk
+          cp $apk/*arm64-v8a*.apk out/lolola-android-arm64.apk
+          cp $apk/*armeabi-v7a*.apk out/lolola-android-arm7.apk
+          cp $apk/app-release.apk out/lolola-android-universal.apk
+          ls -la out
+
+      - name: Put the APKs on the release "lolola-test"
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete lolola-test --yes --cleanup-tag || true
+          gh release create lolola-test out/*.apk --prerelease --target "$GITHUB_SHA" \
+            --title "lolola — тестовая сборка" \
+            --notes "Сборка для проверки, $(date -u '+%d.%m.%Y %H:%M') UTC, коммит ${GITHUB_SHA::7}. Для телефона: lolola-android-arm64.apk"

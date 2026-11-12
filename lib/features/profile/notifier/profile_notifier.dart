@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:hiddify/core/model/constants.dart';
 import 'package:hiddify/core/haptic/haptic_service.dart';
 import 'package:hiddify/core/http_client/http_client_provider.dart';
 import 'package:hiddify/core/localization/translations.dart';
@@ -222,6 +223,8 @@ enum AddProfilePages { options, manual }
 class FreeProfilesNotifier extends _$FreeProfilesNotifier {
   @override
   Future<List<FreeProfile>> build() async {
+    // lolola: no public free servers in our app
+    if (Constants.appName == "lolola") return <FreeProfile>[];
     final httpClient = ref.watch(httpClientProvider);
     final res = await httpClient.get(
       'https://raw.githubusercontent.com/hiddify/hiddify-app/refs/heads/main/test.configs/free_configs',
